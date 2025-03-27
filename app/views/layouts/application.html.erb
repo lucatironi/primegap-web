@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title><%= content_for(:title) || "Primegap Web" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -18,11 +18,31 @@
     <link rel="apple-touch-icon" href="/icon.png">
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag "https://cdn.simplecss.org/simple.css" %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <%= yield %>
+    <header>
+      <h1>PrimeGap</h1>
+      <p>
+        A simple frontend for the PrimeGap project
+      </p>
+      <nav>
+        <%= link_to "Home", root_path %>
+        <%= link_to "Admin", "https://admin.local.dev" %>
+        <%= link_to "Logout", session_path, data: { turbo_method: :delete } if authenticated? %>
+        <%= link_to "Login", new_session_path unless authenticated? %>
+      </nav>
+    </header>
+    <main>
+      <%= yield %>
+    </main>
+    <footer>
+      <p>
+        Copyright 2025 PrimeGap - by <%= link_to "lucatironi", "https://lucatironi.net" %>
+      </p>
+    </footer>
   </body>
 </html>
